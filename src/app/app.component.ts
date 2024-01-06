@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BankNBUService } from './services/bank-nbu.service';
+import { Currency } from './models/currency';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,31 @@ import { BankNBUService } from './services/bank-nbu.service';
 })
 export class AppComponent implements OnInit {
 
+  response: Currency[];
+  firstSumma: number;
+  secondSumma: number;
+  firstSelect: string;
+  secondSelect: string;
+
   constructor(private bankNBUService: BankNBUService) { }
 
   ngOnInit(): void {
     this.bankNBUService.search().subscribe(result => {
       console.log(result);
-      console.log(result[0]);
-      console.log(result[0].txt);
-      console.log(result[0].rate);
+      this.response = result;
     });
+  }
+  addUserSummaFirst(firstSumma: number) {
+    this.firstSumma = firstSumma;
+  }
+  addUserSummaSecond(secondSumma: number) {
+    this.secondSumma = secondSumma;
+  }
+
+  addUserSelectFirst(firstSelect: string) {
+    this.firstSelect = firstSelect;
+  }
+  addUserSelectSecond(secondSelect: string) {
+    this.secondSelect = secondSelect;
   }
 }
