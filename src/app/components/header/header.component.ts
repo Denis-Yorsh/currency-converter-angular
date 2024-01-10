@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Currency } from '../../models/currency'
+import { BankNBUService } from 'src/app/services/bankNBU/bank-nbu.service';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,12 @@ import { Currency } from '../../models/currency'
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  @Input() currency: Currency[];
+
+  currency: Currency[] = [];
+
+  constructor(private bankNBUService: BankNBUService) {
+    this.bankNBUService.search().subscribe(result => {
+      this.currency = result;
+    });
+  }
 }

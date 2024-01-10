@@ -2,13 +2,6 @@
   type="number"
   min="0"
   placeholder="input your summa"
-  (change)="enterSumma(inputElement)"
-  (change)="currencyConverter()"
   value="{{ userSumma }}"
-  #inputElement
+  [(ngModel)]="userSumma"
 />
-<!-- value="{{ userSumma }}" -->
-<!-- value="{{ result }}" -->
-<!-- <p>{{ priseFirstCurrency }}</p> -->
-<!-- <p>{{ priseSecondCurrency }}</p> -->
-<!-- <p>{{ userSumma }}</p> -->

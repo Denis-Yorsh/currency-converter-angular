@@ -1,5 +1,11 @@
 <ul class="header_contener">
-  <li>{{ currency[24].cc }} {{ currency[24].rate }} UAH</li>
-  <li>{{ currency[31].cc }} {{ currency[31].rate }} UAH</li>
-  <li>Date on {{ currency[24].exchangedate }}</li>
+  <li>
+    {{ !currency[24] ? 0 : currency[24].cc }}
+    {{ !currency[24] ? 0 : currency[24].rate }} UAH
+  </li>
+  <li>
+    {{ !currency[31] ? 0 : currency[31].cc }}
+    {{ !currency[31] ? 0 : currency[31].rate }} UAH
+  </li>
+  <li>Date on {{ !currency[24] ? 0 : currency[24].exchangedate }}</li>
 </ul>

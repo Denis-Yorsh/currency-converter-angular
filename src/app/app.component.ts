@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BankNBUService } from './services/bank-nbu.service';
+import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
+import { BankNBUService } from './services/bankNBU/bank-nbu.service';
 import { Currency } from './models/currency';
 
 @Component({
@@ -7,22 +7,30 @@ import { Currency } from './models/currency';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewChecked {
 
-  response: Currency[];
-  firstSumma: number;
-  secondSumma: number;
-  firstSelect: string;
-  secondSelect: string;
+  currency: Currency[] = [];
+  firstSumma: number = 0;
+  secondSumma: number = 0;
+  firstSelect: string = '';
+  secondSelect: string = '';
+  resultFirst: number = 0;
+  resultSecond: number = 0;
 
-  constructor(private bankNBUService: BankNBUService) { }
-
-  ngOnInit(): void {
+  constructor(private bankNBUService: BankNBUService, private changeDetector: ChangeDetectorRef) {
     this.bankNBUService.search().subscribe(result => {
       console.log(result);
-      this.response = result;
+      this.currency = result;
     });
   }
+
+  ngAfterViewChecked(): void {
+    console.log(this.firstSumma)
+    console.log(this.secondSumma)
+    this.currencyConverter()
+    this.changeDetector.detectChanges();
+  }
+
   addUserSummaFirst(firstSumma: number) {
     this.firstSumma = firstSumma;
   }
@@ -35,5 +43,14 @@ export class AppComponent implements OnInit {
   }
   addUserSelectSecond(secondSelect: string) {
     this.secondSelect = secondSelect;
+  }
+
+  private currencyConverter() {
+    this.resultFirst = this.findCurrency(this.firstSelect);
+    this.resultSecond = this.findCurrency(this.secondSelect);
+  }
+
+  private findCurrency(select: string): number {
+    return this.currency.filter(item => item.cc === select).map(item => item.rate)[0];
   }
 }
