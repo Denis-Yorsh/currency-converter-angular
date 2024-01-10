@@ -9,11 +9,11 @@ import { Currency } from './models/currency';
 })
 export class AppComponent implements AfterViewChecked {
 
-  currency: Currency[] = [];
-  firstSumma: number = 0;
-  secondSumma: number = 0;
-  firstSelect: string = '';
-  secondSelect: string = '';
+  private currency: Currency[] = [];
+  private firstSumma: number = 0;
+  private secondSumma: number = 0;
+  private firstSelect: string = '';
+  private secondSelect: string = '';
   resultFirst: number = 0;
   resultSecond: number = 0;
 
