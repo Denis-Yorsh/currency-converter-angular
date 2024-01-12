@@ -7,10 +7,11 @@ import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 })
 export class InputComponent implements DoCheck {
 
-  @Output() outInputSumma = new EventEmitter<number>();
-  @Input() userSumma: number = 0;
+  @Output() outInputSumma = new EventEmitter<number | null>();
+  @Input() userSumma: number | null = null;
+  outUserSumma: number | null = null;
 
   ngDoCheck(): void {
-    this.outInputSumma.emit(Number(this.userSumma));
+    this.outInputSumma.emit(this.outUserSumma);
   }
 }
