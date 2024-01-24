@@ -1,8 +1,6 @@
 # Currency converter by rate NBU (Angular)
 
-## The project WITHOUT BUTTONS
-
-## Development server
+## The project WITHOUT BUTTONS!
 
 ### Desctop
 
@@ -16,7 +14,11 @@
 
 ![mobile.png](src%2Fassets%2FimagesForReadme%2Fmobile.png)
 
-### Bank NBU API https://bank.gov.ua/ua/open-data/api-dev
+### Bank NBU API
+
+https://bank.gov.ua/ua/open-data/api-dev
+
+## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 The application will automatically reload if you change any of the source files.
