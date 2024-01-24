@@ -1,14 +1,23 @@
 <div class="contener">
   <app-header></app-header>
-  <h1>Currency converter by rate NBU</h1>
-  <app-input
-    (outInputSumma)="addUserSummaFirst($event)"
-    [userSumma]="resultFirst"
-  ></app-input>
-  <app-select (outSelectCurrency)="addUserSelectFirst($event)"></app-select>
-  <app-input
-    (outInputSumma)="addUserSummaSecond($event)"
-    [userSumma]="resultSecond"
-  ></app-input>
-  <app-select (outSelectCurrency)="addUserSelectSecond($event)"></app-select>
+  <h1>
+    <strong
+      >Currency converter <br />
+      by rate NBU</strong
+    >
+  </h1>
+  <div class="contener_for_select_currency">
+    <app-input
+      (outInputSumma)="addUserSummaFirst($event)"
+      [userSumma]="resultFirst"
+    ></app-input>
+    <app-select (outSelectCurrency)="addUserSelectFirst($event)"></app-select>
+    <app-input
+      (outInputSumma)="addUserSummaSecond($event)"
+      [userSumma]="resultSecond"
+    ></app-input>
+    <app-select (outSelectCurrency)="addUserSelectSecond($event)"></app-select>
+  </div>
+  <app-input-date (outInputDate)="addDate($event)"></app-input-date>
+  <app-li-currency [inDate]="date"></app-li-currency>
 </div>

@@ -1,12 +1,12 @@
-select {
-  appearance: none;
+input {
   display: block;
-  width: 80%;
+  width: 50%;
   line-height: 30px;
   background: #faab1b;
+  text-transform: uppercase;
   cursor: pointer;
   border-radius: 5px;
   font-size: 35px;
-  height: 40px;
-  margin-left: 17%;
+  margin-left: 25%;
+  text-align: center;
 }

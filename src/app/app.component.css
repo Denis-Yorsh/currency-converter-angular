@@ -1,8 +1,26 @@
 .contener {
-  margin: 0 20vw;
+  margin: 0 10vw;
+}
+
+.contener_for_select_currency {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5vh;
+  gap: 15px;
 }
 
 h1 {
+  font-size: 50px;
   text-align: center;
-  margin-top: 20vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+@media (max-width: 690px) {
+  .contener {
+    margin: 0;
+  }
+  h1 > strong {
+    font-size: 30px;
+  }
 }

@@ -21,6 +21,8 @@ export class AppComponent implements AfterViewChecked {
   private secondSelect: string = '';
   private tempSecond: number = 0;
 
+  date: string = "";
+  reset: boolean = false;
   resultFirst: number | null = null;
   resultSecond: number | null = null;
 
@@ -43,19 +45,38 @@ export class AppComponent implements AfterViewChecked {
   }
 
   addUserSelectFirst(firstSelect: string) {
+    this.reset = true;
     this.firstSelect = firstSelect;
   }
   addUserSelectSecond(secondSelect: string) {
+    this.reset = true;
     this.secondSelect = secondSelect;
   }
 
+  addDate(date: string) {
+    this.date = date;
+  }
+
   private currencyConverter() {
+
     if (this.firstSelect === '') {
       this.firstSelect = 'USD';
     }
     if (this.secondSelect === '') {
       this.secondSelect = 'USD';
     }
+
+    // if (this.reset) {
+    //   this.firstSumma = null;
+    //   this.prevFirstSumma = null;
+    //   this.resultFirst = null;
+    //   this.secondSumma = null;
+    //   this.prevSecondSumma = null;
+    //   this.resultSecond = null;
+    //   this.reset = false;
+    //   return;
+    // }
+
     this.firstInput();
     this.secondInput();
     this.checkUAH();

@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { InputComponent } from './components/input/input.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SelectComponent } from './components/select/select.component';
+import { InputDateComponent } from './components/input-date/input-date.component';
+import { LiCurrencyComponent } from './components/li-currency/li-currency.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputComponent,
+    InputDateComponent,
     HeaderComponent,
-    SelectComponent
+    SelectComponent,
+    LiCurrencyComponent
   ],
   imports: [
     BrowserModule,
