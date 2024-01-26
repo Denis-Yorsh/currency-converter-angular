@@ -5,7 +5,7 @@ import { Component, DoCheck, EventEmitter, Input, OnChanges, Output, SimpleChang
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css']
 })
-export class InputComponent implements DoCheck {
+export class InputComponent implements DoCheck, OnChanges {
 
   @Output() outInputSumma = new EventEmitter<number | null>();
   @Input() userSumma: number | null = null;
@@ -13,5 +13,9 @@ export class InputComponent implements DoCheck {
 
   ngDoCheck(): void {
     this.outInputSumma.emit(this.outUserSumma);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.outUserSumma = changes['userSumma'].currentValue;
   }
 }
