@@ -1,10 +1,12 @@
 <select name="select" (change)="enterCurrency(selectElement)" #selectElement>
-  <option value="USD" selected>USD</option>
+  <!-- <option value="USD" selected>USD</option>
   <option value="UAH">UAH</option>
   <option value="EUR">EUR</option>
   <option value="GBP">GBP</option>
   <option value="AUD">AUD</option>
   <option value="CAD">CAD</option>
   <option value="CHF">CHF</option>
-  <option value="JPY">JPY</option>
+  <option value="JPY">JPY</option> -->
+  <option value="UAH" selected>UAH</option>
+  <option *ngFor="let cur of currency" [value]="cur.cc">{{ cur.cc }}</option>
 </select>

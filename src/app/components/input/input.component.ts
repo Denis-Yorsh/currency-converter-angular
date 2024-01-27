@@ -9,6 +9,7 @@ export class InputComponent implements DoCheck, OnChanges {
 
   @Output() outInputSumma = new EventEmitter<number | null>();
   @Input() userSumma: number | null = null;
+  @Input() isResetInput: boolean = false;
   outUserSumma: number | null = null;
 
   ngDoCheck(): void {
@@ -16,6 +17,9 @@ export class InputComponent implements DoCheck, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.outUserSumma = changes['userSumma'].currentValue;
+    if (changes['isResetInput']) {
+      this.userSumma = null;
+      this.outUserSumma = null;
+    }
   }
 }

@@ -1,10 +1,4 @@
 <ul>
   <li>Currency for date {{ !currency[24] ? 0 : currency[24].exchangedate }}</li>
-  <li>USD {{ !currency[24] ? 0 : currency[24].rate }} UAH</li>
-  <li>EUR {{ !currency[31] ? 0 : currency[31].rate }} UAH</li>
-  <li>GBP {{ !currency[23] ? 0 : currency[23].rate }} UAH</li>
-  <li>AUD {{ !currency[0] ? 0 : currency[0].rate }} UAH</li>
-  <li>CAD {{ !currency[1] ? 0 : currency[1].rate }} UAH</li>
-  <li>CHF {{ !currency[21] ? 0 : currency[21].rate }} UAH</li>
-  <li>JPY {{ !currency[10] ? 0 : currency[10].rate }} UAH</li>
+  <li *ngFor="let cur of currency">{{ cur.cc }} {{ cur.rate }} UAH</li>
 </ul>

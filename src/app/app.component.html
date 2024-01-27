@@ -10,11 +10,13 @@
     <app-input
       (outInputSumma)="addUserSummaFirst($event)"
       [userSumma]="resultFirst"
+      [isResetInput]="isReset"
     ></app-input>
     <app-select (outSelectCurrency)="addUserSelectFirst($event)"></app-select>
     <app-input
       (outInputSumma)="addUserSummaSecond($event)"
       [userSumma]="resultSecond"
+      [isResetInput]="isReset"
     ></app-input>
     <app-select (outSelectCurrency)="addUserSelectSecond($event)"></app-select>
   </div>

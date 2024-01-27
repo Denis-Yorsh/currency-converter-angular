@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, DoCheck, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
 import { BankNBUService } from './services/bankNBU/bank-nbu.service';
 import { Currency } from './models/currency';
 
@@ -22,6 +22,7 @@ export class AppComponent implements AfterViewChecked {
   private tempSecond: number = 0;
 
   date: string = "";
+  isReset: boolean = false;
   resultFirst: number | null = null;
   resultSecond: number | null = null;
 
@@ -30,8 +31,8 @@ export class AppComponent implements AfterViewChecked {
       this.currency = result;
     });
 
-    this.firstSelect = 'USD';
-    this.secondSelect = 'USD';
+    this.firstSelect = 'UAH';
+    this.secondSelect = 'UAH';
 
     this.firstMap.set('firstSumma', this.firstSumma)
     this.firstMap.set('firstSelect', this.firstSelect)
@@ -43,7 +44,6 @@ export class AppComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-
     this.isTru();
     this.currencyConverter();
     this.changeDetector.detectChanges();
@@ -73,59 +73,61 @@ export class AppComponent implements AfterViewChecked {
       this.firstMap.set('first', true)
     } else if (this.firstMap.get('firstSelect') != this.firstSelect) {
       this.firstMap.set('firstSelect', this.firstSelect);
-      this.firstMap.set('first', true)
+      this.firstMap.set('first', false)
+      this.secondMap.set('second', false);
+      this.isReset = !this.isReset;
+      return;
     } else if (this.secondMap.get('secondSumma') != this.secondSumma) {
       this.secondMap.set('secondSumma', this.secondSumma);
       this.secondMap.set('second', true);
     } else if (this.secondMap.get('secondSelect') != this.secondSelect) {
       this.secondMap.set('secondSelect', this.secondSelect);
-      this.secondMap.set('second', true);
+      this.firstMap.set('first', false)
+      this.secondMap.set('second', false);
+      this.isReset = !this.isReset;
+      return;
     }
   }
 
-  private currencyConverter() {
+  private currencyConverter(): void {
     this.firstInput();
     this.secondInput();
     this.checkUAH();
   }
 
   private firstInput() {
-    if (this.firstMap.get('first')
-      && this.firstSelect !== 'UAH' && this.secondSelect !== 'UAH') {
+    if (this.firstMap.get('first') && this.firstSelect !== 'UAH' && this.secondSelect !== 'UAH') {
       if (this.firstSelect === this.secondSelect) {
         this.firstMap.set('first', false);
         this.resultSecond = this.firstSumma;
-        this.secondSumma = this.firstSumma;
         return;
       } else if (this.firstSumma === 0 || !this.firstSumma) {
+        this.firstMap.set('first', false);
         return;
       }
       this.tempFirst = this.findCurrency(this.firstSelect) * this.firstSumma;
       this.tempSecond = this.findCurrency(this.secondSelect) * this.firstSumma;
       this.resultSecond = Number(parseFloat(String(this.tempFirst / this.tempSecond * this.firstSumma)).toFixed(4));
 
-      this.secondSumma = this.resultSecond;
       this.firstMap.set('first', false);
       return;
     }
   }
 
   private secondInput() {
-    if (this.secondMap.get('second')
-      && this.firstSelect !== 'UAH' && this.secondSelect !== 'UAH') {
+    if (this.secondMap.get('second') && this.firstSelect !== 'UAH' && this.secondSelect !== 'UAH') {
       if (this.secondSelect === this.firstSelect) {
         this.secondMap.set('second', false)
         this.resultFirst = this.secondSumma;
-        this.firstSumma = this.secondSumma;
         return;
       } else if (this.secondSumma === 0 || !this.secondSumma) {
+        this.secondMap.set('second', false)
         return;
       }
       this.tempFirst = this.findCurrency(this.firstSelect) * this.secondSumma;
       this.tempSecond = this.findCurrency(this.secondSelect) * this.secondSumma;
       this.resultFirst = Number(parseFloat(String(this.tempSecond / this.tempFirst * this.secondSumma)).toFixed(4));
 
-      this.firstSumma = this.resultFirst;
       this.secondMap.set('second', false)
       return;
     }
@@ -135,33 +137,37 @@ export class AppComponent implements AfterViewChecked {
     if (this.firstSelect === 'UAH' && this.secondSelect !== 'UAH') {
       if (this.firstMap.get('first')) {
         if (!this.firstSumma) {
+          this.firstMap.set('first', false);
           return;
         }
         this.resultSecond = Number(parseFloat(String(this.firstSumma / this.findCurrency(this.secondSelect))).toFixed(4));
-        this.secondSumma = this.resultSecond;
+
         this.firstMap.set('first', false);
       } else if (this.secondMap.get('second')) {
         if (!this.secondSumma) {
+          this.secondMap.set('second', false)
           return;
         }
         this.resultFirst = Number(parseFloat(String(this.secondSumma * this.findCurrency(this.secondSelect))).toFixed(4));
-        this.firstSumma = this.resultFirst;
+
         this.secondMap.set('second', false)
       }
     } else if (this.firstSelect !== 'UAH' && this.secondSelect === 'UAH') {
       if (this.firstMap.get('first')) {
         if (!this.firstSumma) {
+          this.firstMap.set('first', false);
           return;
         }
         this.resultSecond = Number(parseFloat(String(this.firstSumma * this.findCurrency(this.firstSelect))).toFixed(4));
-        this.secondSumma = this.resultSecond;
+
         this.firstMap.set('first', false);
       } else if (this.secondMap.get('second')) {
         if (!this.secondSumma) {
+          this.secondMap.set('second', false)
           return;
         }
         this.resultFirst = Number(parseFloat(String(this.secondSumma / this.findCurrency(this.firstSelect))).toFixed(4));
-        this.firstSumma = this.resultFirst;
+
         this.secondMap.set('second', false)
       }
     } else if (this.secondSelect === 'UAH' && this.firstSelect === 'UAH') {
